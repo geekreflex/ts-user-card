@@ -1,18 +1,16 @@
-import { useAppDispatch, useAppSelector } from './app/hooks';
-import Modal from './components/Modal';
-import { closeModal, openModal } from './features/modalSlice';
+import { Routes, Route } from 'react-router-dom';
+import Nav from './components/Nav';
+import About from './pages/About';
+import Home from './pages/Home';
 
 function App() {
-  const dispatch = useAppDispatch();
-  const { isOpen } = useAppSelector((state) => state.modal);
-
   return (
     <div className="App">
-      <button onClick={() => dispatch(!isOpen ? openModal() : closeModal())}>
-        Show Modal
-      </button>
-      <h2>Welcome to Typescript</h2>
-      {isOpen && <Modal />}
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   );
 }
