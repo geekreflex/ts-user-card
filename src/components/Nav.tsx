@@ -1,16 +1,35 @@
 import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { Container } from '../styles/DefaultStyles';
 
 const Nav = () => {
+  const links = [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ];
+
   return (
-    <div>
-      <NavLink to="/">
-        <p>Home</p>
-      </NavLink>
-      <NavLink to="/about">
-        <p>About</p>
-      </NavLink>
-    </div>
+    <Wrapper>
+      <Container>
+        <NavInner>
+          {links.map((link, i) => (
+            <NavLink key={i} to={link.path} end={link.path === '/'}>
+              <p>{link.name}</p>
+            </NavLink>
+          ))}
+        </NavInner>
+      </Container>
+    </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  width: 100%;
+  border: 1px solid red;
+`;
+
+const NavInner = styled.div`
+  display: flex;
+`;
 
 export default Nav;
