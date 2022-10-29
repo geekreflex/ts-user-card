@@ -1,5 +1,7 @@
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useAppSelector } from '../app/hooks';
+import { closeModal } from '../features/modalSlice';
 import CreateUpdateUser from './CreateUpdateUser';
 
 type Props = {
@@ -7,10 +9,16 @@ type Props = {
 };
 
 const Modal = ({ children }: Props) => {
-  const { view } = useAppSelector((state) => state.modal);
+  const dispatch = useDispatch();
+  const { view, isOpen } = useAppSelector((state) => state.modal);
+
+  const onClose = () => {
+    dispatch(closeModal());
+  };
+
   return (
-    <Wrapper>
-      <Overlay />
+    <Wrapper visible={isOpen}>
+      <Overlay onClick={onClose} />
       <MainModal>
         <InnerModal>
           {view === 'create_update_user' && <CreateUpdateUser />}
@@ -20,13 +28,17 @@ const Modal = ({ children }: Props) => {
   );
 };
 
-const Wrapper = styled.div`
+interface VisibleProps {
+  readonly visible: boolean;
+}
+
+const Wrapper = styled.div<VisibleProps>`
   width: 100%;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
 `;
 const Overlay = styled.div`

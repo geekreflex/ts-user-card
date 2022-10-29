@@ -25,7 +25,6 @@ const Nav = () => {
 
 const Wrapper = styled.div`
   width: 100%;
-  border: 1px solid red;
 `;
 
 const NavInner = styled.div`
