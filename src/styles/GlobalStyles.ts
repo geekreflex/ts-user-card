@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-export default createGlobalStyle`
+export default createGlobalStyle<any>`
 :root {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -17,7 +17,9 @@ export default createGlobalStyle`
 }
 
 body {
-color: ${(props) => props.theme.colors.main};
+  color: ${(props) => props.theme.colors.main};
 }
+
+
 
 `;

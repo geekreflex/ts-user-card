@@ -43,13 +43,36 @@ export const InputWrap = styled.div`
     transition: all 300ms ease-in-out;
   }
 
+  input:not(:placeholder-shown) ~ label,
+  textarea:not(:placeholder-shown) ~ label,
   input:focus ~ label,
-  input:valid ~ label,
-  textarea:focus ~ label,
-  textarea:valid ~ label {
+  textarea:focus ~ label {
     top: -12px;
     font-size: 14px;
     background-color: ${(props) => props.theme.colors.bg};
     padding: 0 5px;
+  }
+`;
+
+export const Button = styled.button`
+  background-color: ${(props) => props.theme.colors.btnBgDef};
+  color: ${(props) => props.theme.colors.btnColorDef};
+  padding: 13px 24px;
+  border-radius: ${(props) => props.theme.borderRadius};
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-size: 15px;
+  font-weight: 600;
+`;
+
+export const ButtonClear = styled(Button)`
+  background-color: transparent;
+  text-decoration: underline;
+  color: ${(props) => props.theme.colors.main};
+  padding: 10px;
+
+  :hover {
+    background-color: #eee;
   }
 `;

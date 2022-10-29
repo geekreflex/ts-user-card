@@ -1,35 +1,50 @@
 import styled from 'styled-components';
 
-type Props = {
-  children?: JSX.Element;
-  title: string;
+type ModalProps = {
+  children?: JSX.Element | JSX.Element[];
   visible: boolean;
   onClose: any;
 };
 
-const Modal = ({ children, title, visible, onClose }: Props) => {
+type HeaderProps = {
+  title?: string;
+  onClose?: any;
+};
+
+type DefProps = {
+  children: JSX.Element | JSX.Element[];
+};
+interface VisibleProps {
+  readonly visible: boolean;
+}
+
+const Modal = ({ children, visible, onClose }: ModalProps) => {
   return (
     <Wrapper visible={visible}>
       <Overlay onClick={onClose} />
-      <MainModal>
-        <InnerModal>
-          <ModalHeader>
-            <h3>{title}</h3>
-            <Close onClick={onClose}>
-              <span>&times;</span>
-            </Close>
-          </ModalHeader>
-          <ModalContent>{children}</ModalContent>
-          <ModalFooter></ModalFooter>
-        </InnerModal>
-      </MainModal>
+      <MainModal>{children}</MainModal>
     </Wrapper>
   );
 };
 
-interface VisibleProps {
-  readonly visible: boolean;
-}
+export const ModalHeader = ({ title, onClose }: HeaderProps) => {
+  return (
+    <HeaderWrap>
+      <h3>{title}</h3>
+      <Close onClick={onClose}>
+        <span>&times;</span>
+      </Close>
+    </HeaderWrap>
+  );
+};
+
+export const ModalFooter = ({ children }: DefProps) => {
+  return <FooterWrap>{children}</FooterWrap>;
+};
+
+export const ModalContent = ({ children }: DefProps) => {
+  return <ContentWrap>{children}</ContentWrap>;
+};
 
 const Wrapper = styled.div<VisibleProps>`
   width: 100%;
@@ -57,27 +72,26 @@ const MainModal = styled.div`
   background-color: ${(props) => props.theme.colors.bg};
   position: relative;
   margin-top: 100px;
-  padding: 10px;
+  padding: 0 10px;
   border-radius: 5px;
 `;
-const InnerModal = styled.div``;
 
-const ModalContent = styled.div`
+const ContentWrap = styled.div`
   padding: 20px 10px;
 `;
-const ModalHeader = styled.div`
+const HeaderWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  height: 70px;
   border-bottom: 1px solid ${(props) => props.theme.colors.border};
   padding: 0 10px;
 `;
-const ModalFooter = styled.div`
+const FooterWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50px;
+  height: 70px;
   padding: 0 10px;
   border-top: 1px solid ${(props) => props.theme.colors.border};
 `;
@@ -89,13 +103,11 @@ const Close = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+  cursor: pointer;
+  font-size: 24px;
 
   :hover {
     background-color: #eee;
-  }
-  span {
-    font-size: 24px;
-    cursor: pointer;
   }
 `;
 
