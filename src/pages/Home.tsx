@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import Modal from '../components/Modal';
+import CreateUpdateUser from '../components/CreateUpdateUser';
 import { openModal, closeModal } from '../features/modalSlice';
 
 const Home = () => {
@@ -20,7 +20,7 @@ const Home = () => {
         {isOpen ? 'Close Modal' : 'Create New User'}
       </button>
       <h2>Welcome to Typescript</h2>
-      <Modal />
+      <CreateUpdateUser />
     </div>
   );
 };

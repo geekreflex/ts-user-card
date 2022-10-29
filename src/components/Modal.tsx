@@ -1,27 +1,26 @@
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { useAppSelector } from '../app/hooks';
-import { closeModal } from '../features/modalSlice';
-import CreateUpdateUser from './CreateUpdateUser';
 
 type Props = {
   children?: JSX.Element;
+  title: string;
+  visible: boolean;
+  onClose: any;
 };
 
-const Modal = ({ children }: Props) => {
-  const dispatch = useDispatch();
-  const { view, isOpen } = useAppSelector((state) => state.modal);
-
-  const onClose = () => {
-    dispatch(closeModal());
-  };
-
+const Modal = ({ children, title, visible, onClose }: Props) => {
   return (
-    <Wrapper visible={isOpen}>
+    <Wrapper visible={visible}>
       <Overlay onClick={onClose} />
       <MainModal>
         <InnerModal>
-          {view === 'create_update_user' && <CreateUpdateUser />}
+          <ModalHeader>
+            <h3>{title}</h3>
+            <Close onClick={onClose}>
+              <span>&times;</span>
+            </Close>
+          </ModalHeader>
+          <ModalContent>{children}</ModalContent>
+          <ModalFooter></ModalFooter>
         </InnerModal>
       </MainModal>
     </Wrapper>
@@ -40,6 +39,7 @@ const Wrapper = styled.div<VisibleProps>`
   left: 0;
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
+  align-items: flex-start;
 `;
 const Overlay = styled.div`
   position: absolute;
@@ -54,10 +54,49 @@ const MainModal = styled.div`
   min-height: 100px;
   max-height: 80vh;
   max-width: 600px;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.bg};
   position: relative;
   margin-top: 100px;
+  padding: 10px;
+  border-radius: 5px;
 `;
 const InnerModal = styled.div``;
+
+const ModalContent = styled.div`
+  padding: 20px 10px;
+`;
+const ModalHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  padding: 0 10px;
+`;
+const ModalFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 10px;
+  border-top: 1px solid ${(props) => props.theme.colors.border};
+`;
+
+const Close = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+
+  :hover {
+    background-color: #eee;
+  }
+  span {
+    font-size: 24px;
+    cursor: pointer;
+  }
+`;
 
 export default Modal;
