@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 type ModalProps = {
   children?: JSX.Element | JSX.Element[];
-  visible: boolean;
+  visible?: boolean;
   onClose: any;
 };
 
@@ -15,14 +15,19 @@ type DefProps = {
   children: JSX.Element | JSX.Element[];
 };
 interface VisibleProps {
-  readonly visible: boolean;
+  readonly visible?: boolean;
 }
 
 const Modal = ({ children, visible, onClose }: ModalProps) => {
   return (
     <Wrapper visible={visible}>
-      <Overlay onClick={onClose} />
-      <MainModal>{children}</MainModal>
+      <Overlay
+        onClick={onClose}
+        className="animate__animated animate__fadeIn"
+      />
+      <MainModal className="animate__animated animate__fadeInUp">
+        {children}
+      </MainModal>
     </Wrapper>
   );
 };
@@ -55,6 +60,7 @@ const Wrapper = styled.div<VisibleProps>`
   display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
   align-items: flex-start;
+  transition: all 300ms;
 `;
 const Overlay = styled.div`
   position: absolute;
@@ -73,7 +79,8 @@ const MainModal = styled.div`
   position: relative;
   margin-top: 100px;
   padding: 0 10px;
-  border-radius: 5px;
+  border-radius: ${(props) => props.theme.radius12};
+  box-shadow: ${(props) => props.theme.shadow};
 `;
 
 const ContentWrap = styled.div`
@@ -86,6 +93,10 @@ const HeaderWrap = styled.div`
   height: 70px;
   border-bottom: 1px solid ${(props) => props.theme.colors.border};
   padding: 0 10px;
+
+  h3 {
+    font-weight: 400;
+  }
 `;
 const FooterWrap = styled.div`
   display: flex;

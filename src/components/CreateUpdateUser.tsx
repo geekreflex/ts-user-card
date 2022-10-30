@@ -18,7 +18,7 @@ const CreateUpdateUser = () => {
   const dispatch = useAppDispatch();
   const { isOpen } = useAppSelector((state) => state.modal);
   const method = useForm({ resolver: yupResolver(schema) });
-  const { handleSubmit } = method;
+  const { handleSubmit, reset, watch } = method;
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -27,20 +27,28 @@ const CreateUpdateUser = () => {
   const onClose = () => {
     dispatch(closeModal());
   };
+
+  const onClearAll = () => {
+    reset({ firstName: '', lastName: '', bio: '' });
+  };
+
   return (
     <Modal onClose={onClose} visible={isOpen}>
       <Main>
         <ModalHeader title="Create New User" onClose={onClose} />
         <ModalContent>
-          <InputSplit>
-            <Input label="First name" name="firstName" method={method} />
-            <Input label="Last name" name="lastName" method={method} />
-          </InputSplit>
-          <TextArea label="Bio" name="bio" method={method} />
+          <FormWrap>
+            <InputSplit>
+              <Input label="First name" name="firstName" method={method} />
+              <Input label="Last name" name="lastName" method={method} />
+            </InputSplit>
+            <Input label="Email" method={method} name="email" />
+            <TextArea label="Bio" name="bio" method={method} />
+          </FormWrap>
         </ModalContent>
         <ModalFooter>
-          <ButtonClear>Clear all</ButtonClear>
-          <Button>Submit Data</Button>
+          <ButtonClear onClick={onClearAll}>Clear all</ButtonClear>
+          <Button onClick={handleSubmit(onSubmit)}>Submit Data</Button>
         </ModalFooter>
       </Main>
     </Modal>
@@ -55,6 +63,11 @@ const Main = styled.div`
 const InputSplit = styled.div`
   display: flex;
   gap: 20px;
-  margin-bottom: 20px;
+`;
+
+const FormWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 export default CreateUpdateUser;

@@ -14,7 +14,7 @@ export const InputWrap = styled.div`
 
   input,
   textarea {
-    border: 1px solid #eee;
+    border: 1px solid ${(props) => props.theme.colors.border};
     width: 100%;
     padding: 15px 10px;
     border-radius: 5px;

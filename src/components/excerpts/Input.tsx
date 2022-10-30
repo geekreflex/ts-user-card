@@ -17,13 +17,22 @@ export const Input = ({
   method,
   ...rest
 }: InputProps) => {
-  const { formState: errors } = method;
+  const {
+    register,
+    formState: { errors },
+  } = method;
 
   return (
     <InputWrap>
-      <input name={`${name}`} type={type} placeholder=" " {...rest} />
+      <input
+        name={`${name}`}
+        {...register(`${name}`)}
+        type={type}
+        placeholder=" "
+        {...rest}
+      />
       <label>{label}</label>
-      {errors && errors[name] && <ErrorMsg msg={errors[name].message} />}
+      {errors?.[name] && <ErrorMsg msg={errors[name].message} />}
     </InputWrap>
   );
 };
@@ -34,12 +43,20 @@ export const TextArea = ({
   method,
   ...rest
 }: InputProps) => {
-  const { formState: errors } = method;
+  const {
+    register,
+    formState: { errors },
+  } = method;
   return (
     <InputWrap>
-      <textarea name={`${name}`} placeholder=" " {...rest} />
+      <textarea
+        name={`${name}`}
+        placeholder=" "
+        {...register(`${name}`)}
+        {...rest}
+      />
       <label>{label}</label>
-      {errors && errors[name] && <ErrorMsg msg={errors[name].message} />}
+      {errors?.[name] && <ErrorMsg msg={errors[name].message} />}
     </InputWrap>
   );
 };

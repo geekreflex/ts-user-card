@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import About from './pages/About';
 import Home from './pages/Home';
+import 'animate.css';
 
 function App() {
   return (

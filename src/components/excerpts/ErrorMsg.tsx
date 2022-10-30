@@ -14,7 +14,8 @@ const ErrorMsg = ({ msg }: Props) => {
 
 const Wrapper = styled.div`
   font-size: 12px;
-  color: #ff0000;
+  color: ${(props) => props.theme.colors.danger};
+  margin-left: 5px;
 `;
 
 export default ErrorMsg;
