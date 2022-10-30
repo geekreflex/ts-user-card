@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 import WithTheme from './theme/WithTheme';
+import { getUsersFromStorage } from './features/userSlice';
+
+store.dispatch(getUsersFromStorage());
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

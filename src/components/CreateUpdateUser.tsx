@@ -7,21 +7,36 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import Modal, { ModalContent, ModalFooter, ModalHeader } from './Modal';
 import { Button, ButtonClear } from '../styles/DefaultStyles';
+import { nanoid } from 'nanoid';
+import { addUser } from '../features/userSlice';
 
 const schema = yup.object({
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
+  email: yup.string().email('Invalid email'),
   bio: yup.string(),
 });
 
 const CreateUpdateUser = () => {
   const dispatch = useAppDispatch();
   const { isOpen } = useAppSelector((state) => state.modal);
-  const method = useForm({ resolver: yupResolver(schema) });
+  const method = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      firstName: 'Jerry',
+      lastName: 'Nwosu',
+      email: 'jerry@gmail.com',
+      bio: '',
+    },
+  });
   const { handleSubmit, reset, watch } = method;
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const onSubmit = async (data: any) => {
+    const payload = {
+      id: nanoid(),
+      ...data,
+    };
+    dispatch(addUser(payload));
   };
 
   const onClose = () => {
