@@ -5,12 +5,14 @@ interface UserState {
   users: UserModel[];
   user: {};
   error: string;
+  layout: 'grid' | 'list';
 }
 
 const initialState: UserState = {
   users: [],
   user: {},
   error: '',
+  layout: 'list',
 };
 
 const userSlice = createSlice({
@@ -47,8 +49,11 @@ const userSlice = createSlice({
     resetError: (state) => {
       state.error = '';
     },
+    setLayout: (state, action: PayloadAction<'grid' | 'list'>) => {
+      state.layout = action.payload;
+    },
   },
 });
 
-export const { getUsersFromStorage, addUser } = userSlice.actions;
+export const { getUsersFromStorage, addUser, setLayout } = userSlice.actions;
 export default userSlice.reducer;

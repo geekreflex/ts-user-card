@@ -8,7 +8,7 @@ const UserList = () => {
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
   const dispatch = useAppDispatch();
-  const { users } = useAppSelector((state) => state.user);
+  const { users, layout } = useAppSelector((state) => state.user);
 
   const dragStart = (e: any, position: any) => {
     dragItem.current = position;
@@ -17,7 +17,6 @@ const UserList = () => {
 
   const dragEnter = (e: any, position: any) => {
     dragOverItem.current = position;
-    // e.target.classList.add('drag-enter');
   };
 
   const drop = (e: any) => {
@@ -34,24 +33,49 @@ const UserList = () => {
 
   return (
     <Wrapper>
-      {users.map((user, index) => (
-        <User
-          key={user.id}
-          user={user}
-          dragStart={dragStart}
-          index={index}
-          dragEnter={dragEnter}
-          drop={drop}
-        />
-      ))}
+      {layout === 'grid' && (
+        <GridView>
+          {users.map((user, index) => (
+            <User
+              key={user.id}
+              user={user}
+              dragStart={dragStart}
+              index={index}
+              dragEnter={dragEnter}
+              drop={drop}
+            />
+          ))}
+        </GridView>
+      )}
+      {layout === 'list' && (
+        <ListView>
+          {users.map((user, index) => (
+            <User
+              key={user.id}
+              user={user}
+              dragStart={dragStart}
+              index={index}
+              dragEnter={dragEnter}
+              drop={drop}
+            />
+          ))}
+        </ListView>
+      )}
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div``;
+
+const GridView = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+`;
+const ListView = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 `;
 
 export default UserList;
