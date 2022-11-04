@@ -31,6 +31,15 @@ body {
   color: ${(props) => props.theme.colors.main};
 }
 
+.drag-start {
+  transition: all 300ms;
+  opacity: .5;
+  box-shadow: none;
+}
+
+.drag-enter {
+  border: 1px dashed red;
+}
 
 
 

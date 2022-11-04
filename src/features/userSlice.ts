@@ -23,7 +23,6 @@ const userSlice = createSlice({
       if (json) {
         state.users = json;
       }
-      console.log(state.users);
     },
     addUser: (state, action: PayloadAction<UserModel>) => {
       const currUsers = current(state.users);

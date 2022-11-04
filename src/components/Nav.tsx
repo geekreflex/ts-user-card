@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppDispatch } from '../app/hooks';
 import { openModal } from '../features/modalSlice';
 import { Button, Container } from '../styles/DefaultStyles';
+import Layout from './excerpts/Layout';
 
 const Nav = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const Nav = () => {
               <span></span>
             </Logo>
           </Link>
+          <Layout />
           <NavMain>
             <Button onClick={onAddUser}>Add User</Button>
           </NavMain>
