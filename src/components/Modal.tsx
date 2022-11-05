@@ -61,6 +61,7 @@ const Wrapper = styled.div<VisibleProps>`
   justify-content: center;
   align-items: flex-start;
   transition: all 300ms;
+  z-index: 9998;
 `;
 const Overlay = styled.div`
   position: absolute;

@@ -3,14 +3,23 @@ import { UserModel } from '../types/userTypes';
 
 interface UserState {
   users: UserModel[];
-  user: {};
+  user: UserModel;
   error: string;
   layout: 'grid' | 'list';
 }
 
+const userData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  active: true,
+  bio: '',
+  id: '',
+};
+
 const initialState: UserState = {
   users: [],
-  user: {},
+  user: userData,
   error: '',
   layout: 'list',
 };
@@ -42,18 +51,50 @@ const userSlice = createSlice({
       localStorage.setItem('app-users', JSON.stringify(users));
       userSlice.caseReducers.getUsersFromStorage(state);
     },
-    deleteUser: (state, action: PayloadAction<string>) => {
-      const userId = action.payload;
-      console.log(userId);
+    deleteUser: (state) => {
+      const id = state.user.id;
+      const users = state.users;
+      const userIndex = users.findIndex((user) => user.id === id);
+      users.splice(userIndex, 1);
+      state.user = userData;
+      localStorage.setItem('app-users', JSON.stringify(users));
+      userSlice.caseReducers.getUsersFromStorage(state);
     },
     resetError: (state) => {
       state.error = '';
     },
+    getLayout: (state) => {
+      let value: any = localStorage.getItem('layout') || 'list';
+      state.layout = value;
+    },
     setLayout: (state, action: PayloadAction<'grid' | 'list'>) => {
       state.layout = action.payload;
+      localStorage.setItem('layout', action.payload);
+    },
+    toggleStatus: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      let updated = state.users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      );
+      localStorage.setItem('app-users', JSON.stringify(updated));
+      userSlice.caseReducers.getUsersFromStorage(state);
+    },
+    setUser: (state, action: PayloadAction<string>) => {
+      const id = action.payload;
+      const users = current(state.users);
+      const user = users.find((user) => user.id === id);
+      state.user = user || userData;
     },
   },
 });
 
-export const { getUsersFromStorage, addUser, setLayout } = userSlice.actions;
+export const {
+  getUsersFromStorage,
+  addUser,
+  getLayout,
+  setLayout,
+  toggleStatus,
+  setUser,
+  deleteUser,
+} = userSlice.actions;
 export default userSlice.reducer;

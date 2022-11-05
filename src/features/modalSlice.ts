@@ -5,26 +5,34 @@ import type { RootState } from '../../app/store';
 
 // Defaine a type for the slice state
 interface ModalState {
-  isOpen: boolean;
+  createModal: boolean;
+  deleteModal: boolean;
+  editMode: boolean;
 }
 
 // Define the initial state using that type
 const initialState: ModalState = {
-  isOpen: false,
+  createModal: false,
+  deleteModal: false,
+  editMode: false,
 };
 
 export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    openModal(state) {
-      state.isOpen = true;
+    toggleCreateModal(state, action: PayloadAction<boolean>) {
+      state.createModal = action.payload;
     },
-    closeModal(state) {
-      state.isOpen = false;
+    toggleDeleteModal(state, action: PayloadAction<boolean>) {
+      state.deleteModal = action.payload;
+    },
+    toggleEditMode(state, action: PayloadAction<boolean>) {
+      state.editMode = action.payload;
     },
   },
 });
 
-export const { openModal, closeModal } = modalSlice.actions;
+export const { toggleCreateModal, toggleDeleteModal, toggleEditMode } =
+  modalSlice.actions;
 export default modalSlice.reducer;

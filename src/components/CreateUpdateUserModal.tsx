@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { closeModal } from '../features/modalSlice';
+import { toggleCreateModal } from '../features/modalSlice';
 import { Input, TextArea } from './excerpts/Input';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -17,38 +18,53 @@ const schema = yup.object({
   bio: yup.string(),
 });
 
-const CreateUpdateUser = () => {
+const CreateUpdateUserModal = () => {
   const dispatch = useAppDispatch();
-  const { isOpen } = useAppSelector((state) => state.modal);
+  const { createModal, editMode } = useAppSelector((state) => state.modal);
+  const { user } = useAppSelector((state) => state.user);
+
   const method = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: 'Jerry',
-      lastName: 'Nwosu',
-      email: 'jerry@gmail.com',
+      firstName: '',
+      lastName: '',
+      email: '',
       bio: '',
     },
   });
-  const { handleSubmit, reset, watch } = method;
+  const { handleSubmit, reset, setValue } = method;
 
   const onSubmit = async (data: any) => {
     const payload = {
       id: nanoid(),
       ...data,
+      active: true,
     };
     dispatch(addUser(payload));
+    onClose();
+    onClearAll();
   };
 
   const onClose = () => {
-    dispatch(closeModal());
+    dispatch(toggleCreateModal(false));
+    onClearAll();
   };
 
   const onClearAll = () => {
-    reset({ firstName: '', lastName: '', bio: '' });
+    reset({ firstName: '', lastName: '', bio: '', email: '' });
   };
 
+  useEffect(() => {
+    if (editMode) {
+      setValue('firstName', user.firstName);
+      setValue('lastName', user.lastName);
+      setValue('email', user.email);
+      setValue('bio', user.bio);
+    }
+  }, [user, editMode]);
+
   return (
-    <Modal onClose={onClose} visible={isOpen}>
+    <Modal onClose={onClose} visible={createModal}>
       <Main>
         <ModalHeader title="Create New User" onClose={onClose} />
         <ModalContent>
@@ -62,7 +78,7 @@ const CreateUpdateUser = () => {
           </FormWrap>
         </ModalContent>
         <ModalFooter>
-          <ButtonClear onClick={onClearAll}>Clear all</ButtonClear>
+          <ButtonClear onClick={() => onClearAll()}>Clear all</ButtonClear>
           <Button onClick={handleSubmit(onSubmit)}>Submit Data</Button>
         </ModalFooter>
       </Main>
@@ -85,4 +101,4 @@ const FormWrap = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
-export default CreateUpdateUser;
+export default CreateUpdateUserModal;

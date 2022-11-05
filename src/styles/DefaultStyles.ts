@@ -64,15 +64,33 @@ export const Button = styled.button`
   outline: none;
   font-size: 15px;
   font-weight: 600;
+  transition: all 300ms;
+
+  :disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
 `;
 
 export const ButtonClear = styled(Button)`
   background-color: transparent;
   text-decoration: underline;
   color: ${(props) => props.theme.colors.main};
-  padding: 10px;
+  padding: 8px 10px;
 
   :hover {
     background-color: #eee;
+  }
+`;
+
+export const ButtonDanger = styled(Button)`
+  padding: 8px 10px;
+  background-color: transparent;
+  color: ${(props) => props.theme.colors.danger};
+  border: 1px solid ${(props) => props.theme.colors.danger};
+
+  :hover {
+    background-color: ${(props) => props.theme.colors.danger};
+    color: white;
   }
 `;

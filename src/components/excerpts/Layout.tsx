@@ -1,4 +1,4 @@
-import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
+import { TfiLayoutGrid2, TfiLayoutListPost } from 'react-icons/tfi';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { setLayout } from '../../features/userSlice';
@@ -14,13 +14,14 @@ const Layout = () => {
   };
 
   const layouts: Props[] = [
-    { name: 'List', alias: 'list', icon: <CiGrid2H /> },
-    { name: 'Grid', alias: 'grid', icon: <CiGrid41 /> },
+    { name: 'List', alias: 'list', icon: <TfiLayoutListPost /> },
+    { name: 'Grid', alias: 'grid', icon: <TfiLayoutGrid2 /> },
   ];
   return (
     <Wrapper>
       {layouts.map((item) => (
         <Lay
+          key={item.alias}
           active={layout === item.alias}
           onClick={() => dispatch(setLayout(item.alias))}
         >

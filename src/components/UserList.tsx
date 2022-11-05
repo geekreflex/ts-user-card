@@ -65,11 +65,13 @@ const UserList = () => {
   );
 };
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  margin-bottom: 50px;
+`;
 
 const GridView = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 10px;
 `;
 const ListView = styled.div`

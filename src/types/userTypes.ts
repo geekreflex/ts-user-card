@@ -3,4 +3,6 @@ export type UserModel = {
   lastName: string;
   email: string;
   id: string;
+  active: boolean;
+  bio: string;
 };

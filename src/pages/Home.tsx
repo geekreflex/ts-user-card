@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import CreateUpdateUser from '../components/CreateUpdateUser';
+import CreateUpdateUserModal from '../components/CreateUpdateUserModal';
+import DeleteUserModal from '../components/DeleteUserModal';
 import UserList from '../components/UserList';
 import { Container } from '../styles/DefaultStyles';
 
@@ -7,7 +8,8 @@ const Home = () => {
   return (
     <Wrapper>
       <Container>
-        <CreateUpdateUser />
+        <CreateUpdateUserModal />
+        <DeleteUserModal />
         <UserList />
       </Container>
     </Wrapper>
