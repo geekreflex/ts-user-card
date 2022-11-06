@@ -16,6 +16,7 @@ export const lightTheme: DefaultTheme = {
     cardBg: '#fff',
     text: '#888',
     active: '#ddd',
+    body: '#fff',
   },
 };
 
@@ -36,5 +37,6 @@ export const darkTheme = {
     cardBg: '#222',
     text: '#999',
     active: '#444',
+    body: '#111',
   },
 };

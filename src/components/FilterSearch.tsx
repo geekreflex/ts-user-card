@@ -68,7 +68,7 @@ const Filter = () => {
         <span>
           <IoFilterSharp />
         </span>
-        Filters
+        <p>Filters</p>
       </div>
       {show && (
         <div className="filter-dropdown">
@@ -119,6 +119,21 @@ const FilterWrap = styled.div`
       align-items: center;
     }
   }
+  @media (max-width: 768px) {
+    .filter-menu {
+      padding: 10px;
+      span {
+        margin: 0;
+      }
+      p {
+        display: none;
+      }
+    }
+
+    .filter-dropdown {
+      right: 0;
+    }
+  }
 
   .filter-dropdown {
     position: absolute;
@@ -147,7 +162,7 @@ const Input = styled(InputWrap)`
 
   input {
     padding: 0 40px;
-    width: 350px;
+    max-width: 100%;
     font-size: 14px;
   }
 

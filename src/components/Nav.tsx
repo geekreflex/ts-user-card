@@ -106,7 +106,7 @@ const AddPlus = styled.div`
   position: fixed;
   bottom: 30px;
   right: 20px;
-  background-color: ${(props) => props.theme.colors.cardBg};
+  background-color: ${(props) => props.theme.colors.bg};
   width: 60px;
   height: 60px;
   font-size: 24px;

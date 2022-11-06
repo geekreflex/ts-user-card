@@ -68,7 +68,6 @@ export const Main = styled.div`
 
 export const Text = styled.div`
   margin-bottom: 10px;
-  color: #444;
   p {
     font-size: 14px;
     span {

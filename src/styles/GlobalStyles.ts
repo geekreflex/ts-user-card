@@ -29,7 +29,7 @@ export default createGlobalStyle<any>`
 
 body {
   color: ${(props) => props.theme.colors.main};
-  background-color: ${(props) => props.theme.colors.bg};
+  background-color: ${(props) => props.theme.colors.body};
 }
 
 .drag-start {
