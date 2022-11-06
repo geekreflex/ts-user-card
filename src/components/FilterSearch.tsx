@@ -97,6 +97,7 @@ const Inner = styled.div<any>`
   align-items: center;
   justify-content: space-between;
   transition: all 300ms;
+  gap: 30px;
 `;
 
 const SearchWrap = styled.div``;
