@@ -1,14 +1,16 @@
 import styled from 'styled-components';
-import CreateUpdateUserModal from '../components/CreateUpdateUserModal';
+import { useAppSelector } from '../app/hooks';
+import CreateEditUserModal from '../components/CreateEditUserModal';
 import DeleteUserModal from '../components/DeleteUserModal';
 import UserList from '../components/UserList';
 import { Container } from '../styles/DefaultStyles';
 
 const Home = () => {
+  const { createModal } = useAppSelector((state) => state.modal);
   return (
     <Wrapper>
       <Container>
-        <CreateUpdateUserModal />
+        {createModal && <CreateEditUserModal />}
         <DeleteUserModal />
         <UserList />
       </Container>

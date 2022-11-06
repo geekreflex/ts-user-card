@@ -9,7 +9,7 @@ import * as yup from 'yup';
 import Modal, { ModalContent, ModalFooter, ModalHeader } from './Modal';
 import { Button, ButtonClear } from '../styles/DefaultStyles';
 import { nanoid } from 'nanoid';
-import { addUser } from '../features/userSlice';
+import { addUser, editUser, resetUser } from '../features/userSlice';
 
 const schema = yup.object({
   firstName: yup.string().required('First name is required'),
@@ -18,7 +18,7 @@ const schema = yup.object({
   bio: yup.string(),
 });
 
-const CreateUpdateUserModal = () => {
+const CreateEditUserModal = () => {
   const dispatch = useAppDispatch();
   const { createModal, editMode } = useAppSelector((state) => state.modal);
   const { user } = useAppSelector((state) => state.user);
@@ -26,13 +26,13 @@ const CreateUpdateUserModal = () => {
   const method = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      email: '',
-      bio: '',
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      bio: user.bio,
     },
   });
-  const { handleSubmit, reset, setValue } = method;
+  const { handleSubmit, reset } = method;
 
   const onSubmit = async (data: any) => {
     const payload = {
@@ -40,28 +40,24 @@ const CreateUpdateUserModal = () => {
       ...data,
       active: true,
     };
-    dispatch(addUser(payload));
+    if (editMode) {
+      dispatch(editUser({ id: user.id, ...data, active: user.active }));
+    } else {
+      dispatch(addUser(payload));
+    }
     onClose();
     onClearAll();
   };
 
   const onClose = () => {
     dispatch(toggleCreateModal(false));
+    dispatch(resetUser());
     onClearAll();
   };
 
   const onClearAll = () => {
     reset({ firstName: '', lastName: '', bio: '', email: '' });
   };
-
-  useEffect(() => {
-    if (editMode) {
-      setValue('firstName', user.firstName);
-      setValue('lastName', user.lastName);
-      setValue('email', user.email);
-      setValue('bio', user.bio);
-    }
-  }, [user, editMode]);
 
   return (
     <Modal onClose={onClose} visible={createModal}>
@@ -101,4 +97,4 @@ const FormWrap = styled.div`
   flex-direction: column;
   gap: 20px;
 `;
-export default CreateUpdateUserModal;
+export default CreateEditUserModal;

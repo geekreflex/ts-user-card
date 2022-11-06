@@ -51,6 +51,17 @@ const userSlice = createSlice({
       localStorage.setItem('app-users', JSON.stringify(users));
       userSlice.caseReducers.getUsersFromStorage(state);
     },
+    editUser: (state, action: PayloadAction<UserModel>) => {
+      const editedUser = action.payload;
+
+      const users = current(state.users);
+      let updated = users.map((user) =>
+        user.id === editedUser.id ? { ...editedUser } : user
+      );
+
+      localStorage.setItem('app-users', JSON.stringify(updated));
+      userSlice.caseReducers.getUsersFromStorage(state);
+    },
     deleteUser: (state) => {
       const id = state.user.id;
       const users = state.users;
@@ -62,6 +73,9 @@ const userSlice = createSlice({
     },
     resetError: (state) => {
       state.error = '';
+    },
+    resetUser: (state) => {
+      state.user = userData;
     },
     getLayout: (state) => {
       let value: any = localStorage.getItem('layout') || 'list';
@@ -96,5 +110,7 @@ export const {
   toggleStatus,
   setUser,
   deleteUser,
+  editUser,
+  resetUser,
 } = userSlice.actions;
 export default userSlice.reducer;
