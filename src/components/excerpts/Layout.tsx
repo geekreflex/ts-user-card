@@ -43,8 +43,8 @@ interface LayProps {
 }
 
 const Wrapper = styled.div`
-  background-color: white;
-  border: 1px solid #ddd;
+  background-color: ${(props) => props.theme.colors.cardBg};
+  border: 1px solid ${(props) => props.theme.colors.border};
   display: flex;
   height: 40px;
   width: 140px;
@@ -65,11 +65,12 @@ const Lay = styled.div<LayProps>`
   align-items: center;
   font-size: 24px;
   cursor: pointer;
-  color: ${(props) => (props.active ? '#666' : '#888')};
-  background-color: ${(props) => (props.active ? '#eee' : '')};
+  color: ${(props) => (props.active ? props.theme.colors.text : '#888')};
+  background-color: ${(props) =>
+    props.active ? props.theme.colors.active : ''};
 
   :last-child {
-    border-left: 1px solid #ddd;
+    border-left: 1px solid ${(props) => props.theme.colors.border};
   }
 `;
 

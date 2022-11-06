@@ -13,13 +13,13 @@ store.dispatch(getLayout());
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <WithTheme>
-      <Router>
-        <Provider store={store}>
+    <Provider store={store}>
+      <WithTheme>
+        <Router>
           <GlobalStyles />
           <App />
-        </Provider>
-      </Router>
-    </WithTheme>
+        </Router>
+      </WithTheme>
+    </Provider>
   </React.StrictMode>
 );

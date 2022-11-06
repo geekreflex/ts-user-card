@@ -23,6 +23,8 @@ export const InputWrap = styled.div`
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: normal;
+    background-color: transparent;
+    color: ${(props) => props.theme.colors.main};
   }
 
   input {

@@ -82,7 +82,7 @@ interface WrapProp {
 }
 
 const Wrapper = styled.div<WrapProp>`
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.cardBg};
   border-radius: ${(props) => props.theme.borderRadius};
   border: 1px solid ${(props) => props.theme.colors.border};
   opacity: ${(props) => (props.disabled ? '.6' : '1')};

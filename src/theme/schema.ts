@@ -13,6 +13,9 @@ export const lightTheme: DefaultTheme = {
     btnBgDef: '#222222',
     btnColorDef: '#ffffff',
     danger: 'rgb(230, 0, 0)',
+    cardBg: '#fff',
+    text: '#888',
+    active: '#ddd',
   },
 };
 
@@ -26,9 +29,12 @@ export const darkTheme = {
     main: '#fafafa',
     secondary: '#f1f1f1',
     bg: '#202124',
-    border: '#444444',
+    border: '#333',
     btnBgDef: '#ffffff',
     btnColorDef: '#222222',
     danger: 'rgb(230, 0, 0)',
+    cardBg: '#222',
+    text: '#999',
+    active: '#444',
   },
 };

@@ -66,7 +66,7 @@ const UserList = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 80px 0 50px 0;
+  margin: 30px 0 50px 0;
 `;
 
 const GridView = styled.div`

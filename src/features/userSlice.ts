@@ -6,6 +6,7 @@ interface UserState {
   user: UserModel;
   error: string;
   layout: 'grid' | 'list';
+  theme: string;
 }
 
 const userData = {
@@ -22,6 +23,7 @@ const initialState: UserState = {
   user: userData,
   error: '',
   layout: 'list',
+  theme: 'light',
 };
 
 const userSlice = createSlice({
@@ -99,6 +101,14 @@ const userSlice = createSlice({
       const user = users.find((user) => user.id === id);
       state.user = user || userData;
     },
+    toggleTheme: (state) => {
+      const theme = state.theme;
+      if (theme === 'light') {
+        state.theme = 'dark';
+      } else {
+        state.theme = 'light';
+      }
+    },
   },
 });
 
@@ -112,5 +122,6 @@ export const {
   deleteUser,
   editUser,
   resetUser,
+  toggleTheme,
 } = userSlice.actions;
 export default userSlice.reducer;

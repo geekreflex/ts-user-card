@@ -4,11 +4,13 @@ import CreateEditUserModal from '../components/CreateEditUserModal';
 import DeleteUserModal from '../components/DeleteUserModal';
 import UserList from '../components/UserList';
 import { Container } from '../styles/DefaultStyles';
+import FilterSearch from '../components/FilterSearch';
 
 const Home = () => {
   const { createModal } = useAppSelector((state) => state.modal);
   return (
     <Wrapper>
+      <FilterSearch />
       <Container>
         {createModal && <CreateEditUserModal />}
         <DeleteUserModal />
@@ -19,7 +21,7 @@ const Home = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 60px;
 `;
 
 export default Home;

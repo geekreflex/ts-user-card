@@ -1,13 +1,15 @@
-import { IoAddSharp } from 'react-icons/io5';
+import { IoAddSharp, IoMoonSharp, IoSunnySharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppDispatch } from '../app/hooks';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleCreateModal, toggleEditMode } from '../features/modalSlice';
+import { toggleTheme } from '../features/userSlice';
 import { Button, Container } from '../styles/DefaultStyles';
 import Layout from './excerpts/Layout';
 
 const Nav = () => {
   const dispatch = useAppDispatch();
+  const { theme } = useAppSelector((state) => state.user);
 
   const onAddUser = () => {
     dispatch(toggleCreateModal(true));
@@ -24,7 +26,15 @@ const Nav = () => {
               <span></span>
             </Logo>
           </Link>
-          <Layout />
+          <Middle>
+            <Layout />
+            <div
+              className="theme-toggle"
+              onClick={() => dispatch(toggleTheme())}
+            >
+              {theme === 'light' ? <IoMoonSharp /> : <IoSunnySharp />}
+            </div>
+          </Middle>
           <NavMain>
             <Button onClick={onAddUser}>Add User</Button>
           </NavMain>
@@ -43,7 +53,8 @@ const Wrapper = styled.div<any>`
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.bg};
+  z-index: 99998;
 `;
 
 const NavInner = styled.div`
@@ -95,18 +106,39 @@ const AddPlus = styled.div`
   position: fixed;
   bottom: 30px;
   right: 20px;
-  background-color: ${(props) => props.theme.colors.main};
-  width: 50px;
-  height: 50px;
-  color: #fff;
+  background-color: ${(props) => props.theme.colors.cardBg};
+  width: 60px;
+  height: 60px;
   font-size: 24px;
   border-radius: 50%;
-  z-index: 999;
+  z-index: 9998;
   cursor: pointer;
   box-shadow: ${(props) => props.theme.cardShadow};
+  color: ${(props) => props.theme.colors.text};
+  border: 1px solid ${(props) => props.theme.colors.border};
 
   @media (max-width: 600px) {
     display: flex;
+  }
+`;
+
+const Middle = styled.div`
+  display: flex;
+  align-items: center;
+
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    background-color: ${(props) => props.theme.colors.cardBg};
+    border: 1px solid ${(props) => props.theme.colors.border};
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+    box-shadow: ${(props) => props.theme.cardShadow};
+    cursor: pointer;
+    color: ${(props) => props.theme.colors.text};
   }
 `;
 

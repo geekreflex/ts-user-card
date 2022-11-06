@@ -83,6 +83,7 @@ const MainModal = styled.div`
   padding: 0 10px;
   border-radius: ${(props) => props.theme.radius12};
   box-shadow: ${(props) => props.theme.shadow};
+  border: 1px solid ${(props) => props.theme.colors.border};
 `;
 
 const ContentWrap = styled.div`

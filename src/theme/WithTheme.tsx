@@ -1,4 +1,5 @@
 import { ThemeProvider } from 'styled-components';
+import { useAppSelector } from '../app/hooks';
 import { lightTheme, darkTheme } from './schema';
 
 type Props = {
@@ -6,10 +7,10 @@ type Props = {
 };
 
 const WithTheme = ({ children }: Props) => {
-  const mode: string = 'light';
+  const { theme } = useAppSelector((state) => state.user);
 
   const renderTheme = () => {
-    switch (mode) {
+    switch (theme) {
       case 'light':
         return lightTheme;
       case 'dark':
