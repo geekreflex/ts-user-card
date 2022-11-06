@@ -1,3 +1,4 @@
+import { IoAddSharp } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch } from '../app/hooks';
@@ -29,13 +30,20 @@ const Nav = () => {
           </NavMain>
         </NavInner>
       </Container>
+      <AddPlus onClick={onAddUser}>
+        <IoAddSharp />
+      </AddPlus>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<any>`
   width: 100%;
   border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 `;
 
 const NavInner = styled.div`
@@ -74,6 +82,32 @@ const Logo = styled.div`
 
 const NavMain = styled.div`
   display: flex;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const AddPlus = styled.div`
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 20px;
+  background-color: ${(props) => props.theme.colors.main};
+  width: 50px;
+  height: 50px;
+  color: #fff;
+  font-size: 24px;
+  border-radius: 50%;
+  z-index: 999;
+  cursor: pointer;
+  box-shadow: ${(props) => props.theme.cardShadow};
+
+  @media (max-width: 600px) {
+    display: flex;
+  }
 `;
 
 export default Nav;

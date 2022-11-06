@@ -7,6 +7,12 @@ const Layout = () => {
   const { layout } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
+  window.addEventListener('resize', () => {
+    if (window.innerWidth < 600) {
+      dispatch(setLayout('grid'));
+    }
+  });
+
   type Props = {
     name: string;
     alias: 'grid' | 'list';
@@ -46,6 +52,10 @@ const Wrapper = styled.div`
   align-items: center;
   box-shadow: 0 1px 2px rgb(0 0 0 / 8%), 0 4px 12px rgb(0 0 0 / 5%);
   overflow: hidden;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 const Lay = styled.div<LayProps>`
   width: 50%;

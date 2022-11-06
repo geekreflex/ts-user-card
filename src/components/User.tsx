@@ -40,6 +40,7 @@ const User = ({ user, dragStart, dragEnter, drop, index }: UserProps) => {
       onDragStart={(e) => dragStart(e, index)}
       onDragEnter={(e) => dragEnter(e, index)}
       onDragEnd={drop}
+      onTouchStart={(e) => dragStart(e, index)}
       draggable
       view={layout}
       disabled={!user.active}
@@ -51,7 +52,7 @@ const User = ({ user, dragStart, dragEnter, drop, index }: UserProps) => {
             <p>{user.firstName}</p>
             <p>{user.lastName}</p>
           </div>
-          <p>{user.email}</p>
+          <p className="user-email">{user.email}</p>
         </div>
       </div>
       <div className="user-action">
@@ -83,7 +84,6 @@ interface WrapProp {
 const Wrapper = styled.div<WrapProp>`
   background-color: #fff;
   border-radius: ${(props) => props.theme.borderRadius};
-  /* height: 80px; */
   border: 1px solid ${(props) => props.theme.colors.border};
   opacity: ${(props) => (props.disabled ? '.6' : '1')};
   box-shadow: ${(props) => (props.disabled ? '' : props.theme.cardShadow)};
@@ -100,11 +100,18 @@ const Wrapper = styled.div<WrapProp>`
     .user-details {
       display: flex;
       flex-direction: column;
+      flex: 1;
+      width: 70%;
+      overflow: hidden;
 
       .user-name {
         display: flex;
         gap: 10px;
         font-weight: 600;
+      }
+      .user-email {
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
   }
