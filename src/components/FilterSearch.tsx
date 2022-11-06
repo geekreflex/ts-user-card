@@ -1,13 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoCloseSharp, IoFilterSharp, IoSearchSharp } from 'react-icons/io5';
 import styled from 'styled-components';
 import { Container, InputWrap } from '../styles/DefaultStyles';
 
 const FilterSearch = () => {
+  const [fixed, setFixed] = useState(false);
+  window.onscroll = () => {
+    checkScroll();
+  };
+
+  useEffect(() => {
+    checkScroll();
+  }, []);
+
+  const checkScroll = () => {
+    const top = window.scrollY;
+    if (top >= 60) {
+      setFixed(true);
+    } else {
+      setFixed(false);
+    }
+  };
+
   return (
-    <Wrapper>
+    <Wrapper fixed={fixed}>
       <Container>
-        <Inner>
+        <Inner fixed={fixed}>
           <Search />
           <Filter />
         </Inner>
@@ -28,6 +46,7 @@ const Search = () => {
           type="text"
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          placeholder="Search for user..."
         />
         {value && (
           <span onClick={() => setValue('')}>
@@ -62,19 +81,22 @@ const Filter = () => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<any>`
   width: 100%;
   background-color: ${(props) => props.theme.colors.bg};
-  position: relative;
+  position: fixed;
   z-index: 998;
-  box-shadow: ${(props) => props.theme.cardShadow};
+  box-shadow: ${(props) => (props) =>
+    props.fixed ? props.theme.cardShadow : ''};
+  top: 60px;
 `;
 
-const Inner = styled.div`
+const Inner = styled.div<any>`
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 70px;
+  transition: all 300ms;
 `;
 
 const SearchWrap = styled.div``;
@@ -126,6 +148,7 @@ const Input = styled(InputWrap)`
   input {
     padding: 0 40px;
     width: 350px;
+    font-size: 14px;
   }
 
   span {
