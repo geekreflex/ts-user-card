@@ -1,6 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
-import { IoCloseSharp, IoFilterSharp, IoSearchSharp } from 'react-icons/io5';
+import { useEffect, useState } from 'react';
+import {
+  IoCheckmark,
+  IoCheckmarkDone,
+  IoCloseSharp,
+  IoFilterSharp,
+  IoRadio,
+  IoRadioButtonOn,
+  IoSearchSharp,
+} from 'react-icons/io5';
 import styled from 'styled-components';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { setFilter, setSearch } from '../features/userSlice';
 import { Container, InputWrap } from '../styles/DefaultStyles';
 
 const FilterSearch = () => {
@@ -35,7 +45,8 @@ const FilterSearch = () => {
 };
 
 const Search = () => {
-  const [value, setValue] = useState('');
+  const dispatch = useAppDispatch();
+  const { search } = useAppSelector((state) => state.user);
   return (
     <SearchWrap>
       <Input>
@@ -44,12 +55,12 @@ const Search = () => {
         </span>
         <input
           type="text"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
+          value={search}
+          onChange={(e) => dispatch(setSearch(e.target.value))}
           placeholder="Search for user..."
         />
-        {value && (
-          <span onClick={() => setValue('')}>
+        {search && (
+          <span onClick={() => dispatch(setSearch(''))}>
             <IoCloseSharp />
           </span>
         )}
@@ -59,8 +70,19 @@ const Search = () => {
 };
 
 const Filter = () => {
-  const filters = ['All Users', 'Active Users', 'Inactive Users'];
   const [show, setShow] = useState(false);
+  const dispatch = useAppDispatch();
+  const { filter } = useAppSelector((state) => state.user);
+  const filters = [
+    { name: 'All Users', alias: 'all' },
+    { name: 'Active Users', alias: 'active' },
+    { name: 'Inactive Users', alias: 'inactive' },
+  ];
+
+  const onFilter = (filter: string) => {
+    dispatch(setFilter(filter));
+    setShow(false);
+  };
 
   return (
     <FilterWrap>
@@ -72,8 +94,15 @@ const Filter = () => {
       </div>
       {show && (
         <div className="filter-dropdown">
-          {filters.map((filter) => (
-            <div className="filter">{filter}</div>
+          {filters.map((item) => (
+            <div className="filter" onClick={() => onFilter(item.alias)}>
+              {item.name}
+              {item.alias === filter && (
+                <span>
+                  <IoRadioButtonOn />
+                </span>
+              )}
+            </div>
           ))}
         </div>
       )}
@@ -148,6 +177,15 @@ const FilterWrap = styled.div`
       padding: 5px 10px;
       cursor: pointer;
       font-size: 14px;
+      display: flex;
+      align-items: center;
+      span {
+        margin-left: 10px;
+        color: blue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
       :hover {
         background-color: ${(props) => props.theme.colors.active};
       }

@@ -7,6 +7,8 @@ interface UserState {
   error: string;
   layout: 'grid' | 'list';
   theme: string;
+  search: string;
+  filter: string;
 }
 
 const userData = {
@@ -24,6 +26,8 @@ const initialState: UserState = {
   error: '',
   layout: 'list',
   theme: 'light',
+  search: '',
+  filter: 'all',
 };
 
 const userSlice = createSlice({
@@ -109,6 +113,12 @@ const userSlice = createSlice({
         state.theme = 'light';
       }
     },
+    setSearch(state, action: PayloadAction<string>) {
+      state.search = action.payload;
+    },
+    setFilter(state, action: PayloadAction<string>) {
+      state.filter = action.payload;
+    },
   },
 });
 
@@ -123,5 +133,7 @@ export const {
   editUser,
   resetUser,
   toggleTheme,
+  setSearch,
+  setFilter,
 } = userSlice.actions;
 export default userSlice.reducer;

@@ -8,6 +8,7 @@ interface ModalState {
   createModal: boolean;
   deleteModal: boolean;
   editMode: boolean;
+  search: string;
 }
 
 // Define the initial state using that type
@@ -15,6 +16,7 @@ const initialState: ModalState = {
   createModal: false,
   deleteModal: false,
   editMode: false,
+  search: '',
 };
 
 export const modalSlice = createSlice({

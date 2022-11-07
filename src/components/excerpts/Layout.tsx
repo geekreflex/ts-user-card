@@ -63,7 +63,7 @@ const Lay = styled.div<LayProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
   color: ${(props) => (props.active ? props.theme.colors.text : '#888')};
   background-color: ${(props) =>

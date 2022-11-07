@@ -1,14 +1,45 @@
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getUsersFromStorage } from '../features/userSlice';
+import { UserModel } from '../types/userTypes';
 import User from './User';
 
 const UserList = () => {
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
   const dispatch = useAppDispatch();
-  const { users, layout } = useAppSelector((state) => state.user);
+  const { users, layout, search, filter } = useAppSelector(
+    (state) => state.user
+  );
+  const [filteredUser, setFilteredUser] = useState<UserModel[]>([]);
+
+  useEffect(() => {
+    let filtered = users.filter(
+      (user) =>
+        user.firstName.toLowerCase().includes(search) ||
+        user.lastName.toLowerCase().includes(search) ||
+        user.email.toLowerCase().includes(search) ||
+        user.bio.toLowerCase().includes(search)
+    );
+    setFilteredUser(filtered);
+  }, [search, users]);
+
+  useEffect(() => {
+    if (filter === 'all') {
+      setFilteredUser(users);
+    }
+
+    if (filter === 'active') {
+      let allActiveUsers = users.filter((user) => user.active === true);
+      setFilteredUser(allActiveUsers);
+    }
+
+    if (filter === 'inactive') {
+      let allActiveUsers = users.filter((user) => user.active === false);
+      setFilteredUser(allActiveUsers);
+    }
+  }, [filter, users]);
 
   const dragStart = (e: any, position: any) => {
     dragItem.current = position;
@@ -35,7 +66,7 @@ const UserList = () => {
     <Wrapper>
       {layout === 'grid' && (
         <GridView>
-          {users.map((user, index) => (
+          {filteredUser.map((user, index) => (
             <User
               key={user.id}
               user={user}
@@ -49,7 +80,7 @@ const UserList = () => {
       )}
       {layout === 'list' && (
         <ListView>
-          {users.map((user, index) => (
+          {filteredUser?.map((user, index) => (
             <User
               key={user.id}
               user={user}
