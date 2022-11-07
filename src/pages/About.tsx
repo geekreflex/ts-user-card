@@ -16,11 +16,11 @@ const About = () => {
           <ProjInfo>
             <p>
               <span>Author :</span>{' '}
-              <a href="https://github.com/geeflex">Jerry Nwosu</a>
+              <a href="https://github.com/geekreflex">Jerry Nwosu</a>
             </p>
             <p>
               <span>Respository :</span>{' '}
-              <a href="https://github.com/geeflex/ts-user-card">
+              <a href="https://github.com/geekreflex/ts-user-card">
                 TypeScript User Card
               </a>
             </p>
