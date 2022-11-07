@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleCreateModal, toggleEditMode } from '../features/modalSlice';
-import { toggleTheme } from '../features/userSlice';
+import { setTheme } from '../features/userSlice';
 import { Button, Container } from '../styles/DefaultStyles';
 import Layout from './excerpts/Layout';
 
@@ -30,7 +30,9 @@ const Nav = () => {
             <Layout />
             <div
               className="theme-toggle"
-              onClick={() => dispatch(toggleTheme())}
+              onClick={() =>
+                dispatch(setTheme(theme === 'light' ? 'dark' : 'light'))
+              }
             >
               {theme === 'light' ? <IoMoonSharp /> : <IoSunnySharp />}
             </div>
@@ -73,14 +75,14 @@ const Logo = styled.div`
   position: relative;
   font-weight: 600;
   font-size: 14px;
-  border: 1px solid ${(props) => props.theme.colors.main};
+  border: 1px solid ${(props) => props.theme.colors.main}50;
   padding: 6px 10px;
   border-radius: 5px;
   background-color: ${(props) => props.theme.colors.bg};
 
   span {
     position: absolute;
-    border: 1px solid ${(props) => props.theme.colors.secondary};
+    border: 1px solid ${(props) => props.theme.colors.secondary}50;
     content: '';
     width: 100%;
     height: 100%;

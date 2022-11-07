@@ -91,6 +91,14 @@ const userSlice = createSlice({
       state.layout = action.payload;
       localStorage.setItem('layout', action.payload);
     },
+    getTheme: (state) => {
+      let value: any = localStorage.getItem('theme') || 'light';
+      state.theme = value;
+    },
+    setTheme: (state, action: PayloadAction<string>) => {
+      state.theme = action.payload;
+      localStorage.setItem('theme', action.payload);
+    },
     toggleStatus: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       let updated = state.users.map((user) =>
@@ -104,14 +112,6 @@ const userSlice = createSlice({
       const users = current(state.users);
       const user = users.find((user) => user.id === id);
       state.user = user || userData;
-    },
-    toggleTheme: (state) => {
-      const theme = state.theme;
-      if (theme === 'light') {
-        state.theme = 'dark';
-      } else {
-        state.theme = 'light';
-      }
     },
     setSearch(state, action: PayloadAction<string>) {
       state.search = action.payload;
@@ -132,8 +132,9 @@ export const {
   deleteUser,
   editUser,
   resetUser,
-  toggleTheme,
   setSearch,
   setFilter,
+  getTheme,
+  setTheme,
 } = userSlice.actions;
 export default userSlice.reducer;
