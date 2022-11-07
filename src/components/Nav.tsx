@@ -1,14 +1,17 @@
-import { IoAddSharp, IoMoonSharp, IoSunnySharp } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { IoAddSharp, IoHelp, IoMoonSharp, IoSunnySharp } from 'react-icons/io5';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { toggleCreateModal, toggleEditMode } from '../features/modalSlice';
 import { setTheme } from '../features/userSlice';
 import { Button, Container } from '../styles/DefaultStyles';
 import Layout from './excerpts/Layout';
+import { useLocation } from 'react-router-dom';
 
 const Nav = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { theme } = useAppSelector((state) => state.user);
 
   const onAddUser = () => {
@@ -27,6 +30,14 @@ const Nav = () => {
             </Logo>
           </Link>
           <Middle>
+            {location.pathname === '/' && (
+              <div
+                className="theme-toggle help"
+                onClick={() => navigate('/about')}
+              >
+                <IoHelp />
+              </div>
+            )}
             <Layout />
             <div
               className="theme-toggle"
@@ -141,6 +152,11 @@ const Middle = styled.div`
     box-shadow: ${(props) => props.theme.cardShadow};
     cursor: pointer;
     color: ${(props) => props.theme.colors.text};
+  }
+
+  .help {
+    margin-right: 20px;
+    margin-left: 0;
   }
 `;
 

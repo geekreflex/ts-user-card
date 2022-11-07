@@ -45,7 +45,7 @@ const Wrapper = styled.label`
   }
 
   input:checked + .toggler:before {
-    background-color: blue;
+    background-color: ${(props) => props.theme.colors.blue};
     transform: translateX(15px);
   }
 

@@ -181,7 +181,7 @@ const FilterWrap = styled.div`
       align-items: center;
       span {
         margin-left: 10px;
-        color: blue;
+        color: ${(props) => props.theme.colors.blue};
         display: flex;
         justify-content: center;
         align-items: center;

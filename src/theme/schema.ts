@@ -17,6 +17,7 @@ export const lightTheme: DefaultTheme = {
     text: '#888',
     active: '#ddd',
     body: '#fff',
+    blue: '#039be5;',
   },
 };
 
@@ -38,5 +39,6 @@ export const darkTheme = {
     text: '#999',
     active: '#444',
     body: '#111',
+    blue: '#039be5;',
   },
 };
